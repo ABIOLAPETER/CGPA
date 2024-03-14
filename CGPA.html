@@ -1,0 +1,194 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your favourite CGPA and Class Calculator</title>
+
+    <style>
+        *{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }body{
+            background: -moz-linear-gradient( teal, brown );
+            font-family: monospace;
+            color: aliceblue;
+        }
+        .main{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            
+            justify-content: center;
+            margin: 250px auto;
+        }
+        label{
+            margin-bottom: 1rem;
+            font-size: 2rem;
+            text-align: center;
+        }
+        button{
+            background-color: chocolate;
+            padding: 1rem 3rem;
+            width: 10rem;
+            border-radius: 1rem;
+        }
+
+    </style>
+    <script>
+
+        window.alert("Welcome to my page, pls click the button to tell us what you want to calculate. Thank you")
+
+    </script>
+</head>
+<body>
+  
+<div class="main">
+
+    <label for="">Click the button below to calculate your GPA,CGPA, or class for the semester</label>
+    <button onclick="calculatorcode()" >CALCULATE</button>
+
+</div>
+
+
+
+<!-- THIS IS THE JS CODE EXPLAINED WITH COMMENTS IN EACH LINE OF CODE -->
+
+<script>
+    // This function is triggered when the button above is clicked
+    function calculatorcode() {
+        // Display a welcome message using a window alert
+        window.alert("Hey, you are welcome! What would you like to calculate?");
+        window.alert('pls input GPA or CGPA or class to calculate for any of them!! ')
+        // Prompt the user to enter what they would like to calculate
+        var question = prompt("What would you like to calculate?");
+
+        // Check the user's input in the above prompt and execute the corresponding function
+        if (question === "GPA") {
+            GPA();
+        } else if (question === "CGPA") {
+            CGPACalculator();
+        } else if (question === "class") {
+            calculateClass();
+        } else {
+            // Display an alert if the input is not recognized
+            alert("You are not ready to calculate anything!!.");
+        }
+    }
+
+    // Function to calculate GPA
+    function GPA() {
+        // Prompt the user to enter the number of subjects
+        var numberOfSubjects = parseInt(prompt("How many subjects did you take in the semester?"));
+        var coursesCredit = [];
+        var grade = [];
+
+        // Loop through each subject to collect credit and grade information
+        for (var i = 0; i < numberOfSubjects; i++) {
+            var courseCredit = parseFloat(prompt(`Enter the credit for subject ${i + 1}:`));
+            coursesCredit.push(courseCredit);
+
+            var courseGrade = prompt(`Enter the grade for subject ${i + 1}:`).toUpperCase();
+            grade.push(getGradePoint(courseGrade));
+        }
+
+        // Calculate the total credit units by multiplying credits with grades
+        var sum = 0;
+        for (var i = 0; i < coursesCredit.length; i++) {
+            sum += coursesCredit[i] * grade[i];
+        }
+
+        // Display the total credit units
+        alert(`Your Total Credit Units is: ${sum}`);
+    }
+
+    // Function to get grade points based on the grade
+    function getGradePoint(grade) {
+        switch (grade) {
+            case 'A':
+                return 5;
+            case 'B':
+                return 4;
+            case 'C':
+                return 3;
+            case 'D':
+                return 2;
+            case 'E':
+                return 1;
+            default:
+                return 0;
+        }
+    }
+
+    // Function to calculate CGPA
+    function CGPACalculator() {
+        // Prompt the user to enter the number of subjects
+        var numberOfSubjects = parseInt(prompt("How many subjects did you take in the semester?"));
+        var totalCredits = 0;
+        var totalGradePoints = 0;
+
+        // Loop through each subject to collect credit and grade information
+        for (var i = 0; i < numberOfSubjects; i++) {
+            var courseCredit = parseFloat(prompt(`Enter the credit for subject ${i + 1}:`));
+            var courseGrade = prompt(`Enter the grade for subject ${i + 1}:`).toUpperCase();
+
+            // Assign grade points based on the grade entered
+            var gradePoint;
+            switch (courseGrade) {
+                case 'A':
+                    gradePoint = 5;
+                    break;
+                case 'B':
+                    gradePoint = 4;
+                    break;
+                case 'C':
+                    gradePoint = 3;
+                    break;
+                case 'D':
+                    gradePoint = 2;
+                    break;
+                case 'E':
+                    gradePoint = 1;
+                    break;
+                default:
+                    gradePoint = 0;
+            }
+
+            // Accumulate total credits and grade points
+            totalCredits += courseCredit;
+            totalGradePoints += courseCredit * gradePoint;
+        }
+
+        // Calculate CGPA and display the result
+        var CGPA = totalGradePoints / totalCredits;
+        alert(`Your CGPA is: ${CGPA.toFixed(2)}`);
+    }
+
+    // Function to calculate class based on CGPA
+    function calculateClass() {
+        // Prompt the user to enter their CGPA for the semester
+        var classCGPA = parseFloat(prompt("What is your CGPA for the semester?"));
+        var classes;
+
+        // Determine class based on CGPA range
+        if (classCGPA >= 4.50 && classCGPA <= 5.00) {
+            classes = "First Class";
+        } else if (classCGPA >= 3.50 && classCGPA < 4.50) {
+            classes = "Second Class Upper";
+        } else if (classCGPA >= 2.50 && classCGPA < 3.50) {
+            classes = "Second Class Lower";
+        } else if(classCGPA>=2.00 && classCGPA < 2.50){
+            classes = "Third class";
+        }
+        else {
+            classes = "Pass"
+        }
+
+        // Display the calculated class
+        alert(`Your class for the semester is ${classes}`);
+    }
+</script>
+
+
+</body>
+</html>
